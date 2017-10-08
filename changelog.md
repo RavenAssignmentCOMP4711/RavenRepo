@@ -6,7 +6,6 @@ Team membership:
     - Harshita Sharma <hsharma15@my.bcit.ca>
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
-[!!! Please add your info here!!! -----------DELETE THIS LINE BEFORE SUBMISSION]
 
 Changelog format: [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
 
