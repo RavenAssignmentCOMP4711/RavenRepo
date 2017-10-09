@@ -12,6 +12,7 @@ Changelog format: [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdo
 ## *Version 1.0*
 ### Description
     - Updated a few things on the home page
+    - Fixed nabar and footer
 ### Updated components
     - Modified view/home to remove the 0s from before the number of airports 
         and number of flights.  (Harshita)
