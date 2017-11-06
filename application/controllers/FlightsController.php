@@ -20,8 +20,7 @@ class FlightsController extends Application
     function index()
     {
         // This is the view we want shown
-        $role = $this->session->userdata('userrole');
-        $this->data['title'] = 'Raven Air Flights ('. $role . ')';
+        $this->data['title'] = 'Raven Air Flights';
         $this->data['pagebody'] = 'flights';
         
         // Building the list of flights to pass to our view
