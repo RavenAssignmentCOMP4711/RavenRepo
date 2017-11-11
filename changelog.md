@@ -7,6 +7,19 @@ Team membership:
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
 
+## *Version 1.2.3
+### Description
+    - changed add/edit fleet form layout
+### Updated components
+    - Controllers
+        - FleetController.php (Major changes here)
+    - views
+        - views/
+            - /fleet/
+                - add.php
+                - edit.php 
+            - /form_components/
+                -bs_field_block.php
 
 ## *Version 1.2.1
 ### Description
