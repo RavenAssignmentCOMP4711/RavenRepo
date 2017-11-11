@@ -11,11 +11,34 @@ class Fleet extends Entity {
     protected $takeoff;
     protected $hourly;
 
+    public function get($id = null) 
+    {
+
+        if ($id == null)
+            return $this;
+
+        $record = $this->loadCollectionModel('fleets')->get($id);
+
+        if ($record == null)
+            return $this; 
+
+
+        $plane = json_decode(file_get_contents('http://wacky.jlparry.com/info/airplanes/'. $record->plane_id));
+        if ($plane == null)
+            return $this;
+
+        foreach ($plane as $key =>$value)
+        {
+            $this->$key = $value;
+        }
+
+        return $this;
+    }
+
     public function setId($id)
     {
-        // validate the parament before accepting it.
-        // if no validation needed, just delete this function
-        $this->id=$id;
+        // Fleet id cannot be modified, delete and add a new one instead
+        return false;
     }
 
     public function setPlaneid($plane_id)
@@ -27,8 +50,6 @@ class Fleet extends Entity {
 
     public function setModel($model) 
     {
-        // validate the parament before accepting it.
-        // if no validation needed, just delete this function
         $this->model = $model;
     }
 
