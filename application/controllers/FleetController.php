@@ -129,7 +129,7 @@ class FleetController extends Application
 
         $this->load->helper('form');
 
-        $fleet = $this->fleets->get($id);
+        $fleet = $this->session->userdata('fleet') !== null ? (Object)($this->session->userdata('fleet')) : $this->fleets->get($id);
 
         $this->data['title'] = "Edit fleet";
         $this->data['pagebody'] = "fleet/edit";
@@ -204,6 +204,9 @@ class FleetController extends Application
 
     }
 
+    /**
+     * Accption edit fleet form submission
+     */
     public function submit_edit()
     {
         // setup for validation
@@ -221,18 +224,18 @@ class FleetController extends Application
         if ($this->form_validation->run())
         {
             $this->fleets->update($fleet);
-
-            //echo "data updated";
             $this->session->unset_userdata('fleet');
             redirect(base_url('/fleet'));
-            //$this->index();
         } else {
-            //error_log("Validation failed: " . validation_errors());
-            $this->add(); 
+            // Redirect to the form editing
+            $this->edit($fleet->id); 
         }
 
     }
 
+    /**
+     * A function to generate the fleet form
+     */
     private function generate_form($data)
     {
         $this->load->helper('form');
@@ -259,8 +262,6 @@ class FleetController extends Application
         }
 
         $selected = isset($fleet->plane_id) ? $fleet->plane_id : null; 
-
-        //var_dump($selected);
 
         $field_data = array(
             'form_error' => form_error('plane_id'),
