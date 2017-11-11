@@ -25,5 +25,11 @@ class Entity extends CI_Model{
             return $this->$method();
         return $this->$key; 
     } 
+
+    function loadCollectionModel($model_name) {
+        $CI = & get_instance(); 
+        $CI->load->model($model_name); 
+        return $CI->$model_name;
+    }
 }
 

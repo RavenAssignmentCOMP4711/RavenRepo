@@ -9,7 +9,8 @@ Team membership:
 
 ## *Version 1.2.3
 ### Description
-    - changed add/edit fleet form layout
+    - changed add/edit fleet form layout. (Ryan)
+    - changed the fleets model to store only the plane id, and reference the plane details from wacky. (Ryan)
 ### Updated components
     - Controllers
         - FleetController.php (Major changes here)
@@ -21,6 +22,10 @@ Team membership:
             - /form_components/
                 -bs_field_block.php
 
+    - /core/Entity.php
+    - /models/
+        - Fleet.php
+        - Fleets.php
 ## *Version 1.2.1
 ### Description
     - re-organized the routing and pages in adding/modifying fleet. (Ryan)

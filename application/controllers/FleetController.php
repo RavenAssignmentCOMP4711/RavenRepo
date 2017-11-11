@@ -96,7 +96,7 @@ class FleetController extends Application
         }
         
         $this->load->helper('form');
-        $fleet = $this->session->userdata('fleet') !== null ? (Object)($this->session->userdata('fleet')) : $this->fleet;
+        $fleet = $this->session->userdata('fleet') !== null ? (Object)($this->session->userdata('fleet')) : $this->fleets->create();
 
         $this->data['title'] = "Add fleet";
         $this->data['pagebody'] = "fleet/add";
@@ -144,11 +144,13 @@ class FleetController extends Application
         $this->load->library('table');
         $this->data['jsonbutton'] = '';
 
-        $fleet = $this->fleets->get($id);
+        $fleet = $this->fleet->get($id);
 
-        foreach ($fleet as $key=>$value)
+        foreach ((array)$fleet as $key=>$value)
         {
-            $this->table->add_row($key, $value);
+            $this->table->add_row(
+                ucfirst(str_replace(['*', '_'] , ' ', $key)), 
+                $value);
         }
 
         $template = array(
@@ -175,6 +177,7 @@ class FleetController extends Application
         $this->form_validation->set_rules($this->fleets->rules());
 
         $input = $this->input->post();
+        //var_dump($input);
         // retrieve & update data transfer buffer
         $fleet = (array) $this->session->userdata('fleet');
         $fleet = array_merge($fleet, $this->input->post());
@@ -263,61 +266,70 @@ class FleetController extends Application
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
+        // add a fieldset tor wrap the fields cannot be modified
+        $form .= form_fieldset('Plane details', ['id' => 'plane_details', 'disabled' => '']);
+
+        $fleetEntity = $this->fleet->get($fleet->id);
+
         $field_data = array(
             'form_error' => form_error('manufacturer'),
             'the_label' => form_label('Manufacturer', 'manufacturer' ,['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'manufacturer', 'name' => 'manufacturer', 'value' => $fleet->manufacturer, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'manufacturer', 'name' => 'manufacturer', 'value' => $fleetEntity->manufacturer, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
         $field_data = array(
             'form_error' => form_error('model'),
             'the_label' => form_label('Model', 'model', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'model', 'name' => 'model', 'value' => $fleet->model, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'model', 'name' => 'model', 'value' => $fleetEntity->model, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
         $field_data = array(
             'form_error' => form_error('price'),
             'the_label' => form_label('Price', 'price', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'price', 'name' => 'price', 'value' => $fleet->price, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'price', 'name' => 'price', 'value' => $fleetEntity->price, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
         $field_data = array(
             'form_error' => form_error('seats'),
             'the_label' => form_label('Seats', 'seats', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'seats', 'name' => 'seats', 'value' => $fleet->seats, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'seats', 'name' => 'seats', 'value' => $fleetEntity->seats, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
         $field_data = array(
             'form_error' => form_error('reach'),
             'the_label' => form_label('Reach', 'reach', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'reach', 'name' => 'reach', 'value' => $fleet->reach, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'reach', 'name' => 'reach', 'value' => $fleetEntity->reach, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
         $field_data = array(
             'form_error' => form_error('cruise'),
             'the_label' => form_label('Cruise', 'cruise', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'cruise', 'name' => 'cruise', 'value' => $fleet->cruise, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'cruise', 'name' => 'cruise', 'value' => $fleetEntity->cruise, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
         $field_data = array(
             'form_error' => form_error('takeoff'),
             'the_label' => form_label('Takeoff', 'takeoff', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'takeoff', 'name' => 'takeoff', 'value' => $fleet->takeoff, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'takeoff', 'name' => 'takeoff', 'value' => $fleetEntity->takeoff, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
         $field_data = array(
             'form_error' => form_error('hourly'),
             'the_label' => form_label('Hourly', 'hourly', ['class' =>'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'hourly', 'name' => 'hourly', 'value' => $fleet->hourly, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'hourly', 'name' => 'hourly', 'value' => $fleetEntity->hourly, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
+        // close form_fieldset 
+        $form .= form_fieldset_close();
+
+        // form buttons
         $form.= form_submit(null,'submit',['class' => 'btn btn-warning col-md-2 col-md-offset-2']);
         $cancel_button_data = array(
             'classes' => 'btn btn-info col-md-2 col-md-offset-2', 
@@ -325,6 +337,8 @@ class FleetController extends Application
             'display'=>'Cancel'
         );
         $form .= $this->parser->parse('template/_link', $cancel_button_data, true);
+
+        // close form
         $form .= form_close();
 
         return $form;
