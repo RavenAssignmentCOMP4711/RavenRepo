@@ -55,11 +55,17 @@ $route['info/flights/(:any)'] = 'info/show_flight/$1';
 $route['fleet/submit_add']['post'] = 'FleetController/submit_add';
 $route['fleet/submit_edit']['post'] = 'FleetController/submit_edit';
 $route['fleet/delete/(:any)'] = 'FleetController/delete/$1';
+$route['flight/delete/(:any)'] = 'FlightsController/delete/$1';
 $route['fleet/add'] = 'FleetController/add';
+$route['flight/add'] = 'FlightsController/add';
 $route['fleet/edit/(:any)'] = 'FleetController/edit/$1';
 $route['fleet/(:any)'] = 'FleetController/show/$1';
 
 $route['flights/(:any)'] = 'FlightsController/show_flights/$1';
+$route['flight/submit_add']['post'] = 'FlightsController/submit_add';
+$route['flight/submit_edit']['post'] = 'FlightsController/submit_edit';
+$route['flight/edit/(:any)'] = 'FlightsController/edit/$1';
+
 $route['fleet'] = 'FleetController';
 $route['flights'] = 'FlightsController';
 //$route['(:any)'] = 'pages/view/$1';
