@@ -58,8 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('parser');
-
+$autoload['libraries'] = array('parser', 'session');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
@@ -134,6 +133,5 @@ $autoload['language'] = array();
 */
 
 
-$autoload['model'] = array('fleet','flights','airports');
+$autoload['model'] = array('fleets', 'fleet','flights','airports' );
 
-$autoload['libraries'] = array('parser');

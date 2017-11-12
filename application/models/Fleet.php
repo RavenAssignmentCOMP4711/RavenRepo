@@ -1,92 +1,89 @@
 <?php
-class Fleet extends CI_Model
-{
-    
-    var $data = array
-        (
-            '1' => array(
-                "id" => "pc12ng",
-                "plane_id" => "Pilatus",
-                "model" => "PC-12 NG",
-                "price" => "3300",
-                "seats" => "9",
-                "reach" => "4147",
-                "cruise" => "500",
-                "takeoff" => "450",
-                "hourly" => "727"
-            ),
-            '2' => array
-            (
-                "id" => "mustang",
-                "plane_id" => "Cessna",
-                "model" => "Citation Mustang",
-                "price" => "2770",
-                "seats" => "4",
-                "reach" => "2130",
-                "cruise" => "630",
-                "takeoff" => "950",
-                "hourly" => "1015"
-            ),
-            '3' => array
-            (
-                "id" => "baron",
-                "plane_id" => "Beechcraft",
-                "model" => "Baron",
-                "price" => "1350",
-                "seats" => "4",
-                "reach" => "1948",
-                "cruise" => "373",
-                "takeoff" => "701",
-                "hourly" => "340"
-            ),
-            '4' => array
-            (
-                'id' => 'REOM3239',
-                'plane_id' => 'caravan',
-                "manufacturer" => "Cessna",
-                "model" => "Grand Caravan EX",
-                "price" => "2300",
-                "seats" => "14",
-                "reach" => "1689",
-                "cruise" => "340",
-                "takeoff" => "660",
-                "hourly" => "389"
-            )
-        );
+class Fleet extends Entity {
+    protected $id;
+    protected $plane_id;
+    protected $manufacturer;
+    protected $model;
+    protected $price;
+    protected $seats;
+    protected $reach;
+    protected $cruise;
+    protected $takeoff;
+    protected $hourly;
 
-    // Constructor
-    public function __construct()
+    public function get($id = null) 
     {
-        parent::__construct();
-        // inject each "record" key into the record itself, for ease of presentation
-        foreach ($this->data as $key => $record)
+
+        if ($id == null)
+            return $this;
+
+        $record = $this->loadCollectionModel('fleets')->get($id);
+
+        if ($record == null)
+            return $this; 
+
+
+        $plane = json_decode(file_get_contents('http://wacky.jlparry.com/info/airplanes/'. $record->plane_id));
+        if ($plane == null)
+            return $this;
+
+        foreach ($plane as $key =>$value)
         {
-            $record['key'] = $key;
-            $this->data[$key] = $record;
+            $this->$key = $value;
         }
-    }
-    // retrieve a single quote, null if not found
-    public function get($which)
-    {
-        return !isset($this->data[$which]) ? null : $this->data[$which];
-    }
-    public function getPlane($id) {
-       foreach($this->data  as $fleet) {
-            if ($fleet['id'] == $id) {
-                return $fleet;
-            }
-            
-        }
-        return null;
-    }
-    // retrieve all of the quotes
-    public function all()
-    {
-        return $this->data;
-    }
-    public function count()
-    {
-        return count($this->data);
+
+        return $this;
     }
 
+    public function setId($id)
+    {
+        // Fleet id cannot be modified, delete and add a new one instead
+        return false;
+    }
+
+    public function setPlaneid($plane_id)
+    {
+        // validate the parament before accepting it.
+        // if no validation needed, just delete this function
+        $this->plane_id = $plane_id;
+    }
+
+    public function setModel($model) 
+    {
+        $this->model = $model;
+    }
+
+    public function setPrice($price) 
+    {
+        // validate the parament before accepting it.
+        // if no validation needed, just delete this function
+        $this->price = $price;
+    }
+
+    public function setSeats($seats) 
+    {
+        // validate the parament before accepting it.
+        // if no validation needed, just delete this function
+        $this->seats = $seats;
+    }
+
+    public function setReach($reach) 
+    {
+        // validate the parament before accepting it.
+        // if no validation needed, just delete this function
+        $this->reach = $reach;
+    }
+
+    public function setCruise($cruise) 
+    {
+        // validate the parament before accepting it.
+        // if no validation needed, just delete this function
+        $this->cruise = $cruise;
+    }
+    public function setTakeoff($takeoff) 
+    {
+    }
+    public function setHourly($hourly) 
+    {
+    }
 }

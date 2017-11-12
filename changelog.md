@@ -6,13 +6,166 @@ Team membership:
     - Harshita Sharma <hsharma15@my.bcit.ca>
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
-[!!! Please add your info here!!! -----------DELETE THIS LINE BEFORE SUBMISSION]
 
-Changelog format: [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 
+## *Version 1.2.3
+### Description
+    - changed add/edit fleet form layout. (Ryan)
+    - changed the fleets model to store only the plane id, and reference the plane details from wacky. (Ryan)
+### Updated components
+    - Controllers
+        - FleetController.php (Major changes here)
+    - views
+        - views/
+            - /fleet/
+                - add.php
+                - edit.php 
+            - /form_components/
+                -bs_field_block.php
+
+    - /core/Entity.php
+    - /models/
+        - Fleet.php
+        - Fleets.php
+## *Version 1.2.1
+### Description
+    - re-organized the routing and pages in adding/modifying fleet. (Ryan)
+    - eliminate unnecessary methods from the mock-up hard-coded data
+    - added javascript to make form input user-friendly 
+
+### Updated components
+    - Controllers
+        - Home.php
+        - FleetController.php (Major changes here)
+    - Models
+        - Fleet.php changed to Fleets.php. the prural one is the collection model, the sigular is the entity model.
+    - Data
+        - updated csv files, and set the files to be git update assume-unchanged 
+
+### New Components
+    - public/js/fleets.js
+
+## *Version 1.2
+### Description
+    - Main part of this update, is to enable the fleet page to update the database. (Terra)
+    - Fleet page can update/add/delete fleet items. (Terra)
+    - Roles were polished. (Terra)
+    - I also added the skeleton for fleet validation rules. (Terra)
+    - Updated controllers to display role name better (Terra)
+    - Enabled some basic logging of PHP messages. (Terra)
+### Updated components
+    - config.php
+    - routes.php
+    - Controllers
+        - About.php
+        - FleetController.php (Major changes here)
+        - FlightsController.php
+        - Home.php
+    - Models
+        - Fleet.php (Major changes here)
+    - Views
+        - fleet.php
+        
+### New Components
+    application/logs/log-XXXX-XX-XX.php (php log messages)
+    - Views
+        - template/_delete.php
+    
+
+
+## *Version 1.1.3
+### Description
+    - optimized csv data and models to fit the CSV model better (Ryan)
+    - fixed the crashed links to details of plane and flight (Ryan)
+    - modified first() and last() method in Memory_Model adapt to associate arrays (Ryan)
+### modified components
+    - /application/
+        - core/
+            - Memery_Model.php
+    - /data/
+        - fleet.csv
+        - flights.csv
+        - airports.csv
+    - /models/
+        - Airports.php
+        - Fleet.php
+        - Flights.php
+
+## *Version 1.1.2
+### Description
+    - changed model to CSV-persisted (Ryan)
+### new component 
+    - /application/
+        - core/
+            - CI_Model
+            - CSV_Model.php
+            - DataMapper.php
+            - Entity.php
+            - Memory_Model.php
+            - MY_Controller.php
+            - MY_Model.php
+            - RDB_Model.php
+
+    - /data/
+        - fleet.csv
+        - flights.csv
+        - airports.csv
+### modified components
+    - /application/
+        - controllers/
+            - all
+
+## *Version 1.1.1
+### Description
+    - Added phpunit as the unit testing framework (Ryan) 
+    - Added tests for some business rules (Ryan) 
+### New Components
+    - /tests
+        - /data
+            - /business_rules 
+                - arrival_time_limit.json
+                - budget_limit.json
+                - departure_time_limit.json
+                - fly_interval_limit.json
+        - Bootstrap.php 
+        - BusinessRulesTest.php
+
+
+## *Version 1.1* 
+### Description
+    - Fixed missing bootstrap problem (Terra)
+    - Fixed navbar (Terra)
+    - Added user roles and sessions for them (Terra)
+    - Displayed Roles in the page titles (Terra)
+### Updated components
+    - config.php
+    - autoload.php
+    - constants.php
+    - Controllers
+        - About.php
+        - FleetController.php
+        - FlightsController.php
+        - Home.php
+    - Views
+        - template/_menubar.php
+        - template/template.php
+### New Components
+    - public/tmp
+    - Controller
+        - Roles.php
+
+
+
+
+
+
+
+
+
 
 ## *Version 1.0*
 ### Description
     - Updated a few things on the home page
+    - Fixed nabar and footer
 ### Updated components
     - Modified view/home to remove the 0s from before the number of airports 
         and number of flights.  (Harshita)
