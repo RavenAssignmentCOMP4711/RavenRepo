@@ -12,4 +12,13 @@ class Flights extends CSV_Model
     }
 
     // TODO: add validation rules here !!!
+    public function rules()
+    {
+        $config = array(
+            ['field' => 'id', 'label' => 'Fleet Id', 'rules' => 'required|alpha_numeric_spaces|max_length[64]'],
+            ['field' => 'fleet_id', 'label' => 'Plane Id', 'rules' => 'required|alpha_numeric_spaces|max_length[64]'],
+
+        );
+        return $config;
+    }
 }
