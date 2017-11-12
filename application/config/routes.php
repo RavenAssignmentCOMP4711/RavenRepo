@@ -63,6 +63,8 @@ $route['fleet/(:any)'] = 'FleetController/show/$1';
 
 $route['flights/(:any)'] = 'FlightsController/show_flights/$1';
 $route['flight/submit_add']['post'] = 'FlightsController/submit_add';
+$route['flight/submit_edit']['post'] = 'FlightsController/submit_edit';
+$route['flight/edit/(:any)'] = 'FlightsController/edit/$1';
 
 $route['fleet'] = 'FleetController';
 $route['flights'] = 'FlightsController';
