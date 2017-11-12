@@ -34,27 +34,13 @@ class FlightsController extends Application
         
         foreach($flights as $flight) 
         {
-            /*
-            $link_data = array(
-                'display' => $flight['id'],
-                'title' => "Fleet ID: "
-                            . $flight['fleet_id']
-                            . "&#013;Departure Airport: "
-                            . $flight['departure_airport_id']
-                            . "&#013;Departure Time: "
-                            . $flight['departure_time']
-                            . "&#013;Arrival Airport: "
-                            . $flight['arrival_airport_id']
-                            . "&#013;Arrival Time: "
-                            . $flight['arrival_time'],
-                'url' => '/flights/'. $flight['id']
+           
+            $url = ($this->is_admin() ? '/flight/edit/' : '/flights/') . $flight->id;
+            $show_link_data = array(
+                'display' => $flight->id,
+                'url' => $url 
             );
-            */
-
-           
-           
-            //$link = $this->parser->parse('template/_mouseover', $link_data, true);
-           // $this->table->add_row($link, $flight['fleet_id'], $flight['departure_airport_id'], $flight['departure_time'], $flight['arrival_airport_id'], $flight['arrival_time']);
+            $show_link = $this->parser->parse('template/_link', $show_link_data, true);
             
             $delete_link_data = array(
                 'a_class' => 'btn btn-danger',
@@ -62,7 +48,7 @@ class FlightsController extends Application
                 'url' => '/flight/delete/'. $flight->id 
             );
             $delete_link = $this->is_admin() ? $this->parser->parse('template/buttons/glyphbutton', $delete_link_data, true) : '';
-            $this->table->add_row($delete_link.$flight->id, $flight->fleet_id, $flight->departure_airport_id,$flight->departure_time,$flight->arrival_airport_id, $flight->arrival_time);
+            $this->table->add_row($delete_link.$show_link, $flight->fleet_id, $flight->departure_airport_id,$flight->departure_time,$flight->arrival_airport_id, $flight->arrival_time);
             // add a row to the table with the data 
            // $this->table->add_row($delete_link . $show_link, $fleet->plane_id);
         
@@ -86,6 +72,27 @@ class FlightsController extends Application
         $this->render();
     }
 
+
+    public function edit($id)
+    {
+        // only admin can access this page
+        if (!$this->is_admin()) {
+            $this->data['title'] = "Unauthorized access";
+            $this->data['pagebody'] = "errors/page403.php";
+            $this->render();
+        }
+
+
+        $this->load->helper('form');
+
+        $flight = $this->session->userdata('flights') !== null ? (Object)($this->session->userdata('flights')) : $this->flights->get($id);
+
+        $this->data['title'] = "Edit flight";
+        $this->data['pagebody'] = "flight/edit";
+        $this->data['theform'] = $this->generate_form(['flight' =>$flight, 'url' => '/flight/submit_edit' ]);
+        $this->render();
+    }
+
     /**
     * when click one of the flight, the detail information will shows up.
     */
@@ -97,7 +104,7 @@ class FlightsController extends Application
         $role = $this->session->userdata('userrole');
         $this->data['title'] = 'Raven Air Flights ('. ($role == '' ? ROLE_GUEST : $role) . ') ' . $flight->id;
         
-        $this->data['pagebody'] = 'flights';
+        $this->data['pagebody'] = 'flight';
 
         $this->load->library('table');  
         
@@ -172,10 +179,6 @@ class FlightsController extends Application
         if ($this->form_validation->run())
         {
             $this->flights->add($flight);
-
-            //echo "data updated";
-            //$this->session->unset_userdata('fleet');
-            //redirect(base_url('/fleet'));
             $this->index();
         } else {
             //error_log("Validation failed: " . validation_errors());
@@ -183,6 +186,35 @@ class FlightsController extends Application
         }
 
     }
+
+    /**
+     * Accption edit fleet form submission
+     */
+    public function submit_edit()
+    {
+        // setup for validation
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($this->flights->rules());
+
+        $input = $this->input->post();
+        // retrieve & update data transfer buffer
+        $flight = (array) $this->session->userdata('flights');
+        $flight = array_merge($flight, $this->input->post());
+        $this->session->set_userdata('flights', $flight);
+
+        // validate away
+        if ($this->form_validation->run())
+        {
+            $this->flights->update($flight);
+            $this->session->unset_userdata('flight');
+            redirect(base_url('/flights'));
+        } else {
+            // Redirect to the form editing
+            $this->edit($flights->id); 
+        }
+
+    }
+
      /**
      * A function to generate the fleet form
      */
