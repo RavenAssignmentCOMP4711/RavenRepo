@@ -42,7 +42,15 @@ class Home extends Application
         $this->data['airports'] = $this->airports->all();
         $this->data['flights'] = $this->flights->all();
         
+
+// flight booking
+        $this->load->model('airports');
+        $this->load->model('flights');
+        $this->data['airports'] = $this->airports->all();
+        $this->data['flights'] = $this->flights->all();
+
         $this->render();
+        
     }
 
     public function searchFlights()
@@ -81,8 +89,5 @@ class Home extends Application
         header('Content-Type: application/json');
         echo json_encode($matches);
     }
-    
-    function show_404(){
-        $this->load->view("/errors/cli/error_404");
-    }
+
 }

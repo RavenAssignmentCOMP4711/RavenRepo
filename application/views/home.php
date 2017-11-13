@@ -104,7 +104,7 @@
                     <th>Option</th>
                     <th>Departure Airport</th>
                     <th>Departure Time</th>                
-                    <th>Arrival Airport</th>
+                    <th>Destination Airport</th>
                     <th>Arrival Time</th>
                 </tr>
                 </thead>
