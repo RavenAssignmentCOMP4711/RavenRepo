@@ -60,7 +60,7 @@ class FleetController extends Application
         $add_button_data = array(
             'a_class' => 'btn btn-success',
             'gly_class' => 'glyphicon glyphicon-plus',
-            'url' => 'fleet/add'
+            'url' => '/fleet/add'
         );
 
         $this->data['nav_link'] = $this->is_admin() ? $this->parser->parse('template/buttons/glyphbutton', $add_button_data, true) : null; 
