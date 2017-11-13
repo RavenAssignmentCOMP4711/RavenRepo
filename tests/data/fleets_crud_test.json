@@ -1,7 +1,7 @@
 [
     {
         "case":"add valid fleet",
-        "id" : "RE3343",
+        "id" : "RE9999",
         "fleet_id": "baron",
         "expected" : true
     },
@@ -13,7 +13,7 @@
     },
     {
         "case":"add invalid fleet - invalid plane_id",
-        "id" : "RE3343",
+        "id" : "RE9999",
         "fleet_id": "aron",
         "expected" : false 
     }

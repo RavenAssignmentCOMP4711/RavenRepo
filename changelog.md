@@ -29,14 +29,18 @@ Team membership:
 
 ## *Version 1.2.5
 ### Description
-    - Added Testing for fleet  (Harshita)
+    - Added Testing for fleet/fleets/flight/flights  (Harshita)
 ### Updated components
     - tests
         - arrival_time_limit.json
     - .gitignore
 ### New Components
     - tests/data/fleet_setters.json
+    - tests/data/flight_setters.json
     - tests/FleetTest.php
+    - tests/FlighttTest.php
+    - tests/FleetsTest.php
+    - tests/FlightstTest.php
 
 ## *Version 1.2.4
 ### Description
