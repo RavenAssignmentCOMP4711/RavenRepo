@@ -88,6 +88,6 @@ class Home extends Application
         }
         header('Content-Type: application/json');
         echo json_encode($matches);
-
+    }
 
 }
