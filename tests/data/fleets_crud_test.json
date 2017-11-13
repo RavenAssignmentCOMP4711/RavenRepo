@@ -1,0 +1,21 @@
+[
+    {
+        "case":"add valid fleet",
+        "id" : "RE3343",
+        "fleet_id": "baron",
+        "expected" : true
+    },
+    {
+        "case":"add invalid fleet - invalid id",
+        "id" : "XE3343",
+        "fleet_id": "baron",
+        "expected" : false 
+    },
+    {
+        "case":"add invalid fleet - invalid plane_id",
+        "id" : "RE3343",
+        "fleet_id": "aron",
+        "expected" : false 
+    }
+
+]
