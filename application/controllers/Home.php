@@ -35,11 +35,59 @@ class Home extends Application
             $counter++;
         }
          $this->data['airport_list'] = $airport_list;
+
+         // flight booking
+        $this->load->model('airports');
+        $this->load->model('flights');
+        $this->data['airports'] = $this->airports->all();
+        $this->data['flights'] = $this->flights->all();
         
+
+// flight booking
+        $this->load->model('airports');
+        $this->load->model('flights');
+        $this->data['airports'] = $this->airports->all();
+        $this->data['flights'] = $this->flights->all();
+
         $this->render();
+        
     }
-    
-    function show_404(){
-        $this->load->view("/errors/cli/error_404");
+
+    public function searchFlights()
+    {
+        $data = $this->input->post();
+        $departure = $data['departureAirport'];
+        $arrival = $data['destinationAirport'];
+        $this->load->model('flights');
+        $flights = $this->flights->toArray();
+        $matches = array();
+
+        foreach($flights as $flight) {
+
+            if($flight['departure_airport_id'] == $departure) {
+                if($flight['arrival_airport_id'] == $arrival) {
+                    array_push($matches, array($flight)); //1
+                } else {
+                    foreach($flights as $flight2) {
+                        if($flight2['departure_airport_id'] == $flight['arrival_airport_id']) {
+                            if($flight2['arrival_airport_id'] == $arrival) {
+                                array_push($matches, array($flight, $flight2)); //2
+                            } else {
+                                foreach($flights as $flight3) {
+                                    if($flight3['departure_airport_id'] == $flight2['arrival_airport_id']) {
+                                        if($flight3['arrival_airport_id'] == $arrival) {
+                                            array_push($matches, array($flight, $flight2, $flight3)); //3
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        header('Content-Type: application/json');
+        echo json_encode($matches);
     }
+
 }

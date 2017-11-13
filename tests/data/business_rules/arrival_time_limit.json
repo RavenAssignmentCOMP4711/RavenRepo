@@ -3,15 +3,5 @@
         "case": "test no arrival time later than limit",
         "arrival_time_limit": "22:00",
         "expected": true
-    },
-    {
-        "case": "test no arrival time later than limit",
-        "arrival_time_limit": "17:09",
-        "expected": true
-    },
-    {
-        "case": "test no arrival time later than limit",
-        "arrival_time_limit": "22:05",
-        "expected": false
     }
 ]

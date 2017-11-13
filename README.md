@@ -6,6 +6,7 @@ The project is the 1st stage of an airlines sceduling and booking system accordi
 Features:
 1. Added session and user roles.
 2. CSV-persisted data
+3. Added flight booking
 
 ##v1.0
 Features: 
