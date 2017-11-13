@@ -10,4 +10,5 @@ public/tmp/*
 /vendor/*
 /tests/report
 /data/*
-tmp/*
+
+.DS_Store

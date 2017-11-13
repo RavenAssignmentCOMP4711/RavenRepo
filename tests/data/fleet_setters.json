@@ -1,0 +1,80 @@
+[
+    {
+        "case" : "set id - not allowed",
+        "property" : "id",
+        "test_value": "ABCD",
+        "expected": false
+    },
+    {
+        "case" : "set id - not allowed",
+        "property" : "id",
+        "test_value": "RE3239",
+        "expected": false
+    },
+    {
+        "case" : "set plane_id - valid plane id",
+        "property" : "plane_id",
+        "test_value": "avanti",
+        "expected": true 
+    },
+    {
+        "case" : "set plane_id - valid plane id",
+        "property" : "plane_id",
+        "test_value": "baron",
+        "expected": true 
+    },
+    {
+        "case" : "set plane_id - valid plane id",
+        "property" : "plane_id",
+        "test_value": "mustang",
+        "expected": true 
+    },
+    {
+        "case" : "set plane_id - invalid plane id",
+        "property" : "plane_id",
+        "test_value": "abcd",
+        "expected": false 
+    },
+    {
+        "case" : "set model - not allowed",
+        "property" : "model",
+        "test_value": "ABC",
+        "expected": false
+    },
+    {
+        "case" : "set price - not allowed",
+        "property" : "price",
+        "test_value": "176",
+        "expected": false
+    },
+    {
+        "case" : "set seats - not allowed",
+        "property" : "seats",
+        "test_value": "35",
+        "expected": false
+    },
+    {
+        "case" : "set reach - not allowed",
+        "property" : "reach",
+        "test_value": "1893",
+        "expected": false
+    },
+    {
+        "case" : "set cruise - not allowed",
+        "property" : "cruise",
+        "test_value": "176",
+        "expected": false
+    },
+    {
+        "case" : "set takeoff - not allowed",
+        "property" : "takeoff",
+        "test_value": "25",
+        "expected": false
+    },
+    {
+        "case" : "set hourly - not allowed",
+        "property" : "hourly",
+        "test_value": "99",
+        "expected": false
+    }
+]

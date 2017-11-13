@@ -7,7 +7,16 @@ Team membership:
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
 
-
+## *Version 1.2.5
+### Description
+    - Added Testing for fleet  (Harshita)
+### Updated components
+    - tests
+        - arrival_time_limit.json
+    - .gitignore
+### New Components
+    - tests/data/fleet_setters.json
+    - tests/FleetTest.php
 
 ## *Version 1.2.4
 ### Description
