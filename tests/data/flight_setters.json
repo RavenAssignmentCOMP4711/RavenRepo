@@ -1,0 +1,86 @@
+[
+    {
+        "case" : "set id - not allowed",
+        "property" : "id",
+        "test_value": "ABCD",
+        "expected": false
+    },
+    {
+        "case" : "set id - not allowed",
+        "property" : "id",
+        "test_value": "RE3239",
+        "expected": false
+    },
+    {
+        "case" : "set fleet_id - valid fleet",
+        "property" : "fleet_id",
+        "test_value": "RE3239",
+        "expected": true 
+    },
+    {
+        "case" : "set departure time - invalid",
+        "property" : "fleet_id",
+        "test_value": "Ba3424",
+        "expected": false 
+    },
+    {
+        "case" : "set departure airport - invalid airport id",
+        "property" : "departure_airport_id",
+        "test_value": "abcd",
+        "expected": false 
+    },
+    {
+        "case" : "set departure airport - valid airport id",
+        "property" : "departure_airport_id",
+        "test_value": "YXS",
+        "expected": true 
+    },
+    {
+        "case" : "set departure time - earlier than 08:00",
+        "property" : "departure_time",
+        "test_value": "07:00",
+        "expected": false
+    },
+    {
+        "case" : "set departure time - equals to 08:00",
+        "property" : "departure_time",
+        "test_value": "08:00",
+        "expected": true 
+    },
+    {
+        "case" : "set departure time - later than 08:00",
+        "property" : "departure_time",
+        "test_value": "08:00",
+        "expected": true 
+    },
+    {
+        "case" : "set arrival airport - valid airport",
+        "property" : "arrival_airport_id",
+        "test_value": "YXS",
+        "expected": true 
+    },
+    {
+        "case" : "set arrival airport - invalid airport",
+        "property" : "arrival_airport_id",
+        "test_value": "ABC",
+        "expected": false 
+    },
+    {
+        "case" : "set arrival time - earlier than 22:00",
+        "property" : "arrival_time",
+        "test_value": "21:30",
+        "expected": true 
+    },
+    {
+        "case" : "set departure time - equals to 22:00",
+        "property" : "arrival_time",
+        "test_value": "22:00",
+        "expected": true 
+    },
+    {
+        "case" : "set departure time - later than 22:00",
+        "property" : "arrival_time",
+        "test_value": "23:00",
+        "expected": false 
+    }
+]

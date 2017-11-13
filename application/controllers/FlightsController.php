@@ -59,7 +59,7 @@ class FlightsController extends Application
         $this->table->set_template($template);
         $this->data['thetable'] = $this->table->generate();
         
-        $this->data['jsonbutton'] = '<a class="btn btn-default" href="/info/flights" target="_blank"> Show JSON </a>';
+        //$this->data['jsonbutton'] = '<a class="btn btn-default" href="/info/flights" target="_blank"> Show JSON </a>';
        
         // only showing the add button when user is the admin 
         $add_button_data = array(
@@ -279,7 +279,7 @@ class FlightsController extends Application
         $field_data = array(
             'form_error' => form_error('departure_time'),
             'the_label' => form_label('departure time', 'departure_time', ['class' => 'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'departure_time', 'name' => 'departure_time', 'placeholder' => 'hh:mm', 'value' => $flight->departure_time, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'departure_time', 'name' => 'departure_time', 'type' => 'time', 'placeholder' => 'hh:mm', 'value' => $flight->departure_time, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
@@ -309,7 +309,7 @@ class FlightsController extends Application
         $field_data = array(
             'form_error' => form_error('arrival_time'),
             'the_label' => form_label('arrival time', 'arrival_time', ['class' => 'form-label col-md-2']),
-            'the_field' => form_input(['id' => 'arrival_time', 'name' => 'arrival_time', 'placeholder' => 'hh:mm', 'value' => $flight->arrival_time, 'class' => 'form-control'])
+            'the_field' => form_input(['id' => 'arrival_time', 'name' => 'arrival_time', 'type' => 'time', 'placeholder' => 'hh:mm', 'value' => $flight->arrival_time, 'class' => 'form-control'])
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 

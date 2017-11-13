@@ -1,7 +1,7 @@
 <?php
 class Flight extends Entity {
     protected $id;
-    protected $plane_id;
+    protected $fleet_id;
     protected $departure_airport_id;
     protected $departure_time;
     protected $arrival_airport_id;
@@ -21,11 +21,6 @@ class Flight extends Entity {
         if ($record == null)
             return $this; 
 
-
-        $plane = $this->flights->all();
-        if ($plane == null)
-            return $this;
-
         foreach ($plane as $key =>$value)
         {
             $this->$key = $value;
@@ -40,45 +35,73 @@ class Flight extends Entity {
         return false;
     }
 
-    public function setPlaneid($plane_id)
+    public function setFleetid($fleet_id)
     {
-        // validate the parament before accepting it.
-        // if no validation needed, just delete this function
-        $this->plane_id = $plane_id;
+        // only existing fleet can be used to schedule  a flight
+        $record = $this->loadCollectionModel('fleets')->get($fleet_id);
+        if ($record == null)
+            return false;
+
+        $this->fleet_id = $fleet_id;
+        return true;
     }
 
-    public function set_departure_airport_id($airport_id) 
+    public function setDepartureairportid($airport_id) 
     {
+        $record = $this->loadCollectionModel('airports')->get($airport_id);
+        if ($record == null)
+            return;
+
         $this->departure_airport_id = $airport_id;
+        return true;
     }
 
-    public function set_departure_time($time) 
+    public function setDeparturetime($time) 
     {
+        $day = "2017-01-01";
+        $timelimit = "08:00";
+
+        if (strtotime($day . $time ) < strtotime($day . $timelimit))
+            return false;
+
         $this->departure_time = $time;
+        return true;
     }
 
 
-    public function set_arrival_time($time) 
+    public function setArrivaltime($time) 
     {
+        $day = "2017-01-01";
+        $timelimit = "22:00";
+
+        if (strtotime($day . $time ) > strtotime($day . $timelimit))
+            return false;
+
         $this->arrival_time = $time;
+        return true;
     }
 
-    public function set_arrival_airport_id($airport_id) 
+    public function setArrivalairportid($airport_id) 
     {
+        $record = $this->loadCollectionModel('airports')->get($airport_id);
+        if ($record == null)
+            return;
         $this->arrival_airport_id = $airport_id;
+        return true;
     }
 
-    public function set_passenger_num($num) 
+    /*
+    public function setPassengernum($num) 
     {
         $this->passenger_num = $num;
     }
 
-    public function set_airhostness_num($num) 
+    public function setAirhostnessnum($num) 
     {
         $this->airhostness_num = $num;
     }
 
-    public function set_available_seat_num($num) 
+    public function setAvailableseatnum($num) 
     {
         $this->available_seat_num = $num;
     }
@@ -87,7 +110,6 @@ class Flight extends Entity {
     {
         $availble_seat_num--;
     }
-
-
+     */
 
 }
