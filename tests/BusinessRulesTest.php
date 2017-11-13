@@ -16,12 +16,13 @@ class BusinessRulesTest extends TestCase
      */
     public function testBudgetLimit($bugetLimit, $expected)
     {
-        $fleet = $this->CI->fleets->all();
+        $fleets = $this->CI->fleets->all();
         $total = 0;
 
-        foreach ($fleet as $plane)
+        foreach ($fleets as $fleet)
         {
-            $total += $plane->price;
+            $fleetEntity = $this->CI->fleet->get($fleet->id);
+            $total += $fleetEntity->price;
         }
 
         $this->assertEquals($expected, $total <= $bugetLimit);

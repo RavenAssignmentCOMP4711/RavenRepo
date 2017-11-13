@@ -35,6 +35,12 @@ class Home extends Application
             $counter++;
         }
          $this->data['airport_list'] = $airport_list;
+
+         // flight booking
+        $this->load->model('airports');
+        $this->load->model('flights');
+        $this->data['airports'] = $this->airports->all();
+        $this->data['flights'] = $this->flights->all();
         
 
 // flight booking
@@ -82,6 +88,6 @@ class Home extends Application
         }
         header('Content-Type: application/json');
         echo json_encode($matches);
-    }
+
 
 }
