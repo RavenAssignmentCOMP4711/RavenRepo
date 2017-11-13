@@ -7,6 +7,26 @@ Team membership:
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
 
+
+## *Version 1.2.6
+### Description
+    - Modify flight part. 
+    - Amdin user can delete and add flights, and change the existing flights.        (Hugh)
+    - Guest user just can review the description of flights, they cannot change any thing.  (Hugh)
+### Updated components
+    - config.php
+    - routes.php
+    - controller/FlightsController.php
+    - views/flight.php
+    - views/flights.php
+### New Components
+    - views/flight/add.php
+    - views/flight/edit.php
+    - models/flight.php (enetity)
+
+
+
+
 ## *Version 1.2.5
 ### Description
     - Added Testing for fleet  (Harshita)
@@ -47,6 +67,7 @@ Team membership:
     - /models/
         - Fleet.php
         - Fleets.php
+        
 ## *Version 1.2.1
 ### Description
     - re-organized the routing and pages in adding/modifying fleet. (Ryan)
