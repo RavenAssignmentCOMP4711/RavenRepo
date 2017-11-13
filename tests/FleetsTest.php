@@ -21,11 +21,14 @@ class FleetsTest extends TestCase
         );
         $this->CI->fleets->add($record);
         $result = $this->CI->fleets->get($id);
+        $this->assertEquals($expected, $result != null && $result->id == $id);
+        /*
         if ($expected == true) {
             $this->assertEquals($expected, $result->id == $id && $result->plane_id == $plane_id);
             $this->CI->fleets->fleets->delete($id);
         }
-        $this->assertTrue($this->CI->fleets->get($id) == null);
+         */
+        $this->CI->fleets->delete($id);
     }
 
     public  function addFleetsDataProvider()

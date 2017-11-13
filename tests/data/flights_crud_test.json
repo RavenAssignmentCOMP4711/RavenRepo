@@ -1,0 +1,73 @@
+[
+    {
+        "case" : "valid flight data",
+        "id": "RI9999",
+        "fleet_id" : "RE9999",
+        "departure_air_port_id": "YVR",
+        "arrival_air_port_id" :"YXS",
+        "departure_time": "09:00",
+        "arrival_time": "12:00",
+        "expected" : true
+    },
+    {
+        "case" : "invalid id",
+        "id": "XB9999",
+        "fleet_id" : "RE9999",
+        "departure_air_port_id": "YVR",
+        "arrival_air_port_id" :"YXS",
+        "departure_time": "09:00",
+        "arrival_time": "12:00",
+        "expected" : false
+    },
+    {
+        "case" : "invalid fleet id",
+        "id": "RI9999",
+        "fleet_id" : "XE9999",
+        "departure_air_port_id": "YVR",
+        "arrival_air_port_id" :"YXS",
+        "departure_time": "09:00",
+        "arrival_time": "12:00",
+        "expected" : false
+    },
+    {
+        "case" : "invalid departure airport id",
+        "id": "RI9999",
+        "fleet_id" : "RE9999",
+        "departure_air_port_id": "YYD",
+        "arrival_air_port_id" :"YXS",
+        "departure_time": "09:00",
+        "arrival_time": "12:00",
+        "expected" : false
+    },
+    {
+        "case" : "invalid arrival airport id",
+        "id": "RI9999",
+        "fleet_id" : "RE9999",
+        "departure_air_port_id": "YVR",
+        "arrival_air_port_id" :"YYD",
+        "departure_time": "09:00",
+        "arrival_time": "12:00",
+        "expected" : false
+    },
+    {
+        "case" : "invalid departure time - earlier than 08:00",
+        "id": "RI9999",
+        "fleet_id" : "RE9999",
+        "departure_air_port_id": "YVR",
+        "arrival_air_port_id" :"YXS",
+        "departure_time": "07:00",
+        "arrival_time": "12:00",
+        "expected" : false
+    },
+    {
+        "case" : "invalid arrival time - later than 22:00",
+        "id": "RI9999",
+        "fleet_id" : "RE9999",
+        "departure_air_port_id": "YVR",
+        "arrival_air_port_id" :"YXS",
+        "departure_time": "09:00",
+        "arrival_time": "22:30",
+        "expected" : false
+    }
+   
+]

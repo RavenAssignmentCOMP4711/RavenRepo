@@ -7,6 +7,8 @@ Features:
 1. Added session and user roles.
 2. CSV-persisted data
 3. Added flight booking
+4. Fleets/Flights viewing/adding/editing/deleteing
+5. Unit testing
 
 ##v1.0
 Features: 
