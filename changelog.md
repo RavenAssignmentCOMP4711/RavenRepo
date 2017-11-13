@@ -7,6 +7,18 @@ Team membership:
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
 
+
+
+## *Version 1.2.4
+### Description
+    - add flight booking function to search routes between depature airport and destnation airports  (Junnan)
+### Updated components
+    - Controllers
+        - Home.php
+    - views
+        - home.php
+
+
 ## *Version 1.2.3
 ### Description
     - changed add/edit fleet form layout. (Ryan)
