@@ -34,14 +34,7 @@ class Home extends Application
                     " - Destination " .$counter.'<br>';
             $counter++;
         }
-         $this->data['airport_list'] = $airport_list;
-
-         // flight booking
-        $this->load->model('airports');
-        $this->load->model('flights');
-        $this->data['airports'] = $this->airports->all();
-        $this->data['flights'] = $this->flights->all();
-        
+         $this->data['airport_list'] = $airport_list;    
 
 // flight booking
         $this->load->model('airports');
