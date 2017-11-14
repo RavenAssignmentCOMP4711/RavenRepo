@@ -191,7 +191,7 @@ class Memory_Model extends CI_Model implements DataMapper
 	{
 		$results = array();
 		foreach ($this->_data as $key => $record)
-			if ($record[$what] == $which)
+			if ($record->$what == $which)
 				$results[] = $record;
 		return $results;
 	}
