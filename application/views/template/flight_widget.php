@@ -1,20 +1,20 @@
 <ul>
     <li>
-        {flight_id}
+        <b>{flight_id}</b>
     </li>
     <li>
         <ul>
             <li>
-                Departure: {departure_airport}
+                <b>Departure:</b> {departure_airport}
             </li>
             <li>
-                Arrival: {arrival_airport}
+                <b>Arrival: </b>{arrival_airport}
             </li>
             <li>
-                Departure time: {departure_time}
+                <b>Departure time: </b>{departure_time}
             </li>
             <li>
-                Arrival time: {arrival_time}
+                <b>Arrival time: </b>{arrival_time}
             </li>
 
         </ul>

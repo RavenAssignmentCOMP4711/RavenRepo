@@ -247,7 +247,7 @@ class FleetController extends Application
         );
         $form .= $this->parser->parse($field_block, $field_data, true);
 
-        $planes = json_decode(file_get_contents('http://wacky.jlparry.com/info/airplanes'));
+        $planes = json_decode(file_get_contents(WACKY . '/airplanes'));
 
         $options = array(
             'place_holder' => 'Select a plane'

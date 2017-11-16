@@ -7,6 +7,12 @@ Team membership:
     - Junnan Tang <junnan.tang.2014@gmail.com>
     - Terra Hunter <ms.terra.h@gmail.com>
 
+## *Version 2.0
+### Description
+    - Merged all the changes from 1.0 to 2.0
+    - Separated the searching feature into a FlightFinder library and added more searching requirements in the searching algorithm 
+    - Fixed the link to WACKY using http and use constant instead of hardcoded 
+
 
 ## *Version 1.2.6
 ### Description

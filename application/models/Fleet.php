@@ -24,7 +24,7 @@ class Fleet extends Entity {
             return $this;
 
 
-        $plane = json_decode(file_get_contents('http://wacky.jlparry.com/info/airplanes/' . $record->plane_id));
+        $plane = json_decode(file_get_contents(WACKY . 'airplanes/' . $record->plane_id));
         if ($plane == null)
             return $this;
 
@@ -43,7 +43,7 @@ class Fleet extends Entity {
     public function setPlaneid($plane_id) {
         // validate the parament before accepting it.
         // if no validation needed, just delete this function
-        $plane = json_decode(file_get_contents('http://wacky.jlparry.com/info/airplanes/' . $plane_id));
+        $plane = json_decode(file_get_contents(WACKY . 'airplanes/' . $plane_id));
         if ($plane == null)
             return false;
         $this->plane_id = $plane_id;
