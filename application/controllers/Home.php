@@ -35,56 +35,46 @@ class Home extends Application
             $counter++;
         }
          $this->data['airport_list'] = ''. $counter . " airports in operation";
-        // flight booking
-        //$this->load->model('airports');
-        //$this->load->model('flights');
-        //$this->data['airports'] = $this->airports->all();
-        //$this->data['flights'] = $this->flights->all();
-        // show error messages
         
         $error_message = validation_errors(); 
         $this->data['error_message'] = $error_message;    
+
         // show search form
         $search_for = array(
             'from' => '',
             'to'   => '',
             'departure_date' => '',
             'departure_time' => '',
-            'time_range' => '30'
+            'time_range' => '1440'
         ); 
-        //var_dump($this->session->userdata['search_result']);
         
+        // show the search result
         $this->data['search_result'] = '';
         $search_result = empty($this->session->userdata['search_result']) ? null : $this->session->userdata['search_result'];
         //var_dump($search_result);
+        
         if ($search_result != null) {
         $this->table->set_heading('#', 'Sumary', 'Details');
+
         // Show the search result in table
-        $num = 1;
-        foreach ($search_result as $record) 
+        foreach ($search_result as $key => &$record) 
         {
-            foreach ($record as $segment)
+            $sumary = '';
+            $details = '';
+            foreach ($record as $flight)
             {
-                $sumary = '';
-                $details = '';
-                $flight;
-                foreach ($segment as $flight_id)
-                {
-                    //$this->data['search_result'] .= ('<div>' . $flight_id . '</div>');
-                    $flight = $this->flights->get($flight_id); 
-                    $sumary .= ($flight->departure_airport_id . '-->');
-                    $params = array(
-                        'flight_id' => $flight->id,
-                        'departure_airport' => $flight->departure_airport_id,
-                        'arrival_airport' => $flight->arrival_airport_id,
-                        'departure_time' => $flight->departure_time,
-                        'arrival_time' => $flight->arrival_time
+                $sumary .= ($flight->departure_airport_id . '-->');
+                $params = array(
+                    'flight_id' => $flight->id,
+                    'departure_airport' => $flight->departure_airport_id,
+                    'arrival_airport' => $flight->arrival_airport_id,
+                    'departure_time' => $flight->departure_time,
+                    'arrival_time' => $flight->arrival_time
                     );
-                    $details .= $this->parser->parse('/template/flight_widget',$params,true);
-                }
-                $sumary .= $flight->arrival_airport_id;
-                $this->table->add_row($num++, $sumary, $details);
+                $details .= $this->parser->parse('/template/flight_widget',$params,true);
             }
+            $sumary .= $flight->arrival_airport_id;
+            $this->table->add_row($key, $sumary, $details);
         }
         $template = array(
             'table_open' => '<table border="1" class="table">'
@@ -93,6 +83,8 @@ class Home extends Application
         $this->data['search_result'] .= $this->table->generate();
         } 
         //var_dump($this->session->userdata('search_for'));
+
+        // generate the searching form
         $search_for =empty($this->session->userdata('search_for')) ? $search_for :  array_merge($search_for, $this->session->userdata('search_for'));
         $this->session->set_userdata('search_for', $search_for);
         $this->data['error_message'] = validation_errors('<div class="error">', '</div>');
@@ -154,11 +146,11 @@ class Home extends Application
         $form .= $this->parser->parse($field_block, $field_data, true);
         // Search range
         $options = array(
-            'placeholder' => 'Result within',
-            '15' => '15 minutes',
-            '30' => '30 minutes',
-            '45' => '45 minutes',
-            '60' => 'one hour',
+            '--' => 'Result within',
+            '60' => '1 hour',
+            '120' => '2 hours',
+            '180' => '3 hours',
+            '1440' => 'all day',
         );
         $selected = $search_for->time_range;
         $field_data = array(
@@ -180,9 +172,11 @@ class Home extends Application
     public function search()
     {
         $this->load->library('form_validation');
+        $this->load->library('flightsfinder');
+
         $rules = array(
-            ['field' => 'from', 'label' => 'From', 'rules' => 'required'],
-            ['field' => 'to', 'label' => 'To', 'rules' => 'required'],
+            ['field' => 'from', 'label' => 'From', 'rules' => 'required|alpha'],
+            ['field' => 'to', 'label' => 'To', 'rules' => 'required|alpha'],
             ['field' => 'departure_date', 'label' => 'Departure date', 'rules' => 'required'],
         );
         $this->form_validation->set_rules($rules);
@@ -195,56 +189,23 @@ class Home extends Application
         //var_dump($post);
         if (!$this->form_validation->run())
             return $this->index();
-        $airports = $this->airports->all();
-        //var_dump($airports);
-        $graph = array();
-        $visited = array();
-        foreach ($airports as $row)
-        {
-            foreach ($airports as $col)
-                $graph[$row->id][$col->id] = $row->id == $col->id ? 1 : null;
-            $visited[$row->id] = false;
-        } 
-        $flights = $this->flights->all();
-        foreach ($flights as $flight) {
-            $row = $flight->departure_airport_id;
-            $col = $flight->arrival_airport_id;
-            $graph[$row][$col] []= $flight->id;
-        }
-        //var_dump($graph);
-        $path = array();
-        find_paths($graph, $search_for->from, $search_for->to, $visited, $path);
-        //var_dump($path);
-        $options = array();
-        $temp = array();
-        $count = 0;
-        // revert the order from path and get flights info back from graph 
-        for ($i = sizeof($path) -1; $i >= 0; --$i)
-        {
-            //array_push($temp, $path[$i]); 
-            if ($path[$i] != $search_for->to) 
-            {
-                array_push($temp, $graph[$path[$i]][$path[$i-1]]);
-                continue;
-            } 
-            $options[$count++] = $temp;
-            $temp = array();
-        }
+
+
+
+        $conditions = array(
+            'departure_time' => (Object) array(
+                'what' => 'departure_time',
+                'expr' => 'range',
+                'departure_date' => $search_for->departure_date,
+                'departure_time' => $search_for->departure_time, 
+                'range' => $search_for->time_range 
+            )
+        );
+
+        $result = $this->flightsfinder->search($search_for->from, $search_for->to, $conditions);
         
-        //var_dump($options);
-        // expands the result if multipy flights exist between two airport  
-        $results = array();
-        $count = 0; 
-        foreach ($options as $option)
-        {
-            for ($i = 0; $i < sizeof($option); ++$i) 
-            {
-                $result = join_array($result, $option[$i]); 
-            } 
-            $results[$count++] = $result;
-        }
-     //   var_dump($results);
-        $this->session->set_userdata('search_result', $results);
+        
+        $this->session->set_userdata('search_result', $result);
         return $this->index();
     }
 //    public function searchFlights()
@@ -285,6 +246,7 @@ class Home extends Application
 //    }
 //
 }
+/*
 function is_adjacent(&$g, $u, $v)
 {
     return $u != $v && $g[$u][$v] != null;
@@ -337,3 +299,4 @@ function join_array(&$arr1, &$arr2) {
     //var_dump($result);
     return $result;
 } 
+ */

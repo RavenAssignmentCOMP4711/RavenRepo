@@ -25,7 +25,7 @@ class Fleets extends CSV_Model
         $record = (array) $record;
         if (strtolower(substr($record['id'], 0, 1)) != 'r')
             return false;
-        $airplane = json_decode(file_get_contents('http://wacky.jlparry.com/info/airplanes/' . $record['plane_id']));
+        $airplane = json_decode(file_get_contents(WACKY . 'airplanes/' . $record['plane_id']));
 
         if ($airplane == null)
             return false;

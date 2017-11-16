@@ -8,6 +8,6 @@ class Wacky extends Application
 
     public function plane($id)
     {
-        echo file_get_contents('http://wacky.jlparry.com/info/airplanes/'.$id);
+        echo file_get_contents(WACKY . 'airplanes/'.$id);
     }
 }
