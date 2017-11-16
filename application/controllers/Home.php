@@ -172,7 +172,7 @@ class Home extends Application
     public function search()
     {
         $this->load->library('form_validation');
-        $this->load->library('flightsfinder');
+        $this->load->library('FlightsFinder');
 
         $rules = array(
             ['field' => 'from', 'label' => 'From', 'rules' => 'required|alpha'],
